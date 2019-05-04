@@ -1,31 +1,29 @@
-def adicionar_aluno():
+import helpers
+# ALUNOS
+alunos = []
+
+
+def adicionar_aluno(nome, cpf):
     global alunos
-    nome_aluno = pede_nome()
-    cpf_aluno = pede_cpf()
-    for p,e in enumerate(alunos):
-        if e[1] == cpf_aluno:
-            print("\n --- Aluno já cadastrado!---")
-            del alunos[p]
-    else:
-        alunos.append([nome_aluno, cpf_aluno])
-
-
+    for indice,elemento in enumerate(alunos):
+            if elemento[1] == cpf:
+                    return False
+    alunos.append([nome, cpf])
+    return True
     
-def apagar_aluno():
+def apagar_aluno(cpf):
     global alunos
-    cpf_aluno = pede_cpf()
     for p , e in enumerate(alunos):
-        if e[1] == cpf_aluno:
+        if e[1] == cpf:
             del alunos[p]
             print("\n--- Aluno deletado ---")
 
 
 
-def atualizar_aluno():
+def atualizar_aluno(cpf):
     global alunos
-    cpf_aluno = pede_cpf()
     for p , e in enumerate(alunos):
-        if e[1].lower() == cpf_aluno:
+        if e[1] == cpf:
             novo_nome = input("Digite o novo nome: ")
             novo_cpf = input("Digite o novo cpf: ")
             alunos[p][0] = novo_nome

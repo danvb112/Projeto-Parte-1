@@ -1,19 +1,21 @@
-def adicionar_professor():
-    global professor
-    nome_professor = pede_nome()
-    cpf_professor = pede_cpf()
-    departamento = pede_departamento()
-    for p,e in enumerate(professor):
-        if e[1] == cpf_professor:
-            print("\n --- Professor já cadastrado!---")
-            del professor[p]
-    else:
+import helpers
+# Professores
+professor = []
+
+def adicionar_professor(nome, cpf, departamento):        
+        global professor
+        for indice,elemento in enumerate(professor):
+                if elemento[1] == cpf:
+                return False
         professor.append([nome_professor, cpf_professor, departamento])
+        return True
+
+    
 
 
 def apagar_professor():
     global professor
-    cpf_professor = pede_cpf()
+    cpf_professor = helpers.pede_cpf()
     for p,e in enumerate(professor):
         if e[1] == cpf_professor:
             del professor[p]
@@ -22,7 +24,7 @@ def apagar_professor():
 def atualizar_professor():
     global professor
     print("\n--- Qual professor você deseja atualizar? ---")
-    cpf_professor = pede_cpf()
+    cpf_professor = helpers.pede_cpf()
     for p,e in enumerate(professor):
         if e[1] == cpf_professor:
             novo_nome = input("Digite o nome atualizado do professor: ")
