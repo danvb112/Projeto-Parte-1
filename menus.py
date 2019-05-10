@@ -1,4 +1,10 @@
-import alunos, professores, disciplinas, turmas, relatorios, helpers
+import alunos
+import professores
+import disciplinas
+import turmas
+import relatorios
+import helpers
+
 # --- MENU---
 
 def home_menu():
@@ -125,19 +131,20 @@ def professores_menu():
     """)
     while True:
         opcao = int(input("Digite a opção: "))
-
+        
         if opcao > 5 or opcao < 0:
             print("--- Opção inválido por favor digite novamente ---")
             continue
 
         if opcao == 1:
-            professores.mostrar_lista_professores()
+            professores.listar()
             professores_menu()
         if opcao == 2:
-            nome = helpers.pede_nome()
-            cpf = helpers.pede_cpf()
-            departamento = helpers.pede_departamento()
-            if professores.adicionar_professor(nome,cpf, departamento) == True:
+            nome            = helpers.pede_nome()
+            cpf             = helpers.pede_cpf()
+            departamento    = helpers.pede_departamento()
+
+            if professores.adicionar(nome,cpf, departamento):
                 print("--- Professor adicionado com sucesso! ---")
                 professores_menu()
             else:
@@ -145,25 +152,30 @@ def professores_menu():
                 professores_menu()
         if opcao == 3:
             cpf = helpers.pede_cpf()
-            if professores.apagar_professor(cpf) == True:
+            if professores.apagar(cpf):
                 print("\n--- Professor deletado ---")
             else:
                 print("--- Professor Não registrado ---")
             professores_menu()
         if opcao == 4:
-            cpf = helpers.pede_cpf()
-            if professores.atualizar_professor(cpf) == True:
+            cpf             = helpers.pede_cpf()
+            if professores.buscar(cpf):
+                nome            = helpers.pede_nome()
+                cpf_novo        = helpers.pede_cpf()
+                departamento    = helpers.pede_departamento()
+
+                professores.atualizar(cpf, nome, cpf_novo, departamento) 
                 print("--- Professor atualizado com sucesso ---")
                 professores_menu()
             else:
                 print("--- Professor não registrado ---")
                 professores_menu()
+            
         if opcao == 5:
-            professores.grava_professores()
+            professores.salvar()
             professores_menu()
         if opcao == 0:
             home_menu()
-        
 
 
 def disciplina_menu():

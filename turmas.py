@@ -1,10 +1,46 @@
-import helpers, alunos, professores, disciplinas, menus
+import helpers
+import alunos
+import professores
+import disciplinas
+import menus
 # Turmas 
-informacoes_da_turma = []
-disciplina_turma = []
-professor_turma = []
-turma_alunos = []
-alunos_cpf_temp = []
+turma = {}
+
+def adicionar(cod_turma, periodo, cod_disciplina):
+    # verificar se já existe
+    if cod_turma in turma.keys():
+        return False
+
+    turma[cod_turma] = [periodo, cod_disciplina, '', []]
+
+    return True
+
+
+def adicionar_professor(cod_turma, cpf):
+    # verificar se já existe
+    if len(professores.professores.keys()) == 0:
+        return False
+
+    turma[cod_turma][2] = cpf
+
+
+def adicionar_aluno(cod_turma, cpf):
+    # verificar se turma já existe
+    if cod_turma in turma.keys():
+        return False
+
+    # verificar se aluno já existe
+    if cpf in turma[3]:
+        return False
+
+    turma[cod_turma][3].append(cpf)
+
+
+def listar():
+    for chave, (periodo, disciplina, cpf_prof, cpf_alunos) in turma.items():
+        print('COD. TURMA: {} PERIODO: {} DISCIPLINA: {} PROF.: {}'.format(chave, periodo, disciplina, cpf_prof))
+        for aluno in cpf_alunos:
+            print(aluno)
 
 
 def nova_turma(nome_turma,codigo_da_turma, periodo, codigo_disciplina, cpf_professor):
@@ -30,6 +66,7 @@ def nova_turma(nome_turma,codigo_da_turma, periodo, codigo_disciplina, cpf_profe
             return True
     return True
 
+
 def adicionar_aluno_nova_turma(cpf_aluno):
     for indice,elemento in enumerate(alunos.alunos):
         if elemento[1] == cpf_aluno:
@@ -38,10 +75,6 @@ def adicionar_aluno_nova_turma(cpf_aluno):
         else:
             return False
 
-
-
-
-        
 
 def deletar_turma(codigo_da_turma):
     global informacoes_da_turma
@@ -57,7 +90,6 @@ def deletar_turma(codigo_da_turma):
             return True
         else:
             return False
-
 
 
 def verificacao_turma(codigo):
@@ -82,20 +114,7 @@ def adicionar_aluno_turma(cpf_aluno,codigo_da_turma):
             break
     turma_alunos[indice_turma].append(aluno)
 
-
 #def deletar_aluno_turma():
-
-
-
-
-
-
-
-
-
-
-
-
 def atualizar_informacoes_turma(codigo, periodo, nome_turma):
     global informacoes_da_turma
     global disciplina_turma
@@ -109,21 +128,6 @@ def atualizar_informacoes_turma(codigo, periodo, nome_turma):
             return True 
         else:
             return False
-
-
-    
-
-    
-
-
-
-
-
-
-
-
-
-
 
 
 def atualizar_turma():
@@ -174,6 +178,7 @@ def atualizar_turma():
                         print("\n--- Disciplina Atualizada ---")
         return True
 
+
 def mostrar_turma():
     global informacoes_da_turma
     global disciplina_turma
@@ -188,8 +193,15 @@ def mostrar_turma():
         
 
 
-     
+if __name__ == "__main__":
+    adicionar('123', '1', '000')
+    professores.popular_professores_teste()
+    
+    adicionar_professor('123', '12345')
+    
+    # alunos_turma = ['0123', '102300', '1020129']
+    # for cpf in alunos_turma:
+    #     adicionar_aluno('123', alunos.buscar_nome(cpf))
 
-   
 
     
