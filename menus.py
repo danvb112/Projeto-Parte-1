@@ -29,8 +29,8 @@ def home_menu():
     while True:
         opcao_menu = int(input("Digite a opção: "))
 
-        if opcao_menu > 4 or opcao_menu < 0:
-            print("--- Opção inválido por favor digite novamente ---")
+        if opcao_menu > 5 or opcao_menu < 0:
+            print("\n--- Opção inválido por favor digite novamente ---")
             continue
 
         if opcao_menu == 1:
@@ -41,6 +41,8 @@ def home_menu():
             disciplina_menu()
         if opcao_menu == 4:
             turma_menu()
+        if opcao_menu == 5:
+            relatorio_menu()
         if opcao_menu == 0:
             exit()
 
@@ -69,41 +71,42 @@ def alunos_menu():
 
     while True:
         opcao = int(input("Digite a opção: "))
+        
 
         if opcao > 5 or opcao < 0:
-            print("--- Opção inválido por favor digite novamente ---")
+            print("\n--- Opção inválido por favor digite novamente ---")
             continue
 
 
         if opcao == 1:
-            alunos.ver_todos_alunos()
+            alunos.listar()
             alunos_menu()
         if opcao == 2:
             nome = helpers.pede_nome()
             cpf = helpers.pede_cpf()
-            if alunos.adicionar_aluno(nome, cpf) == True:
-                print("--- Aluno cadastrado com sucesso! ---")
+            if alunos.adicionar(nome, cpf) == True:
+                print("\n--- Aluno cadastrado com sucesso! ---")
                 alunos_menu()
             else:
-                print("--- Aluno já adicionado ---")
+                print("\n--- Aluno já adicionado ---")
                 alunos_menu()
         if opcao == 3:
             cpf = helpers.pede_cpf()
-            if alunos.apagar_aluno(cpf) -- True:
+            if alunos.apagar(cpf) == True:
                 print("\n--- Aluno deletado ---")
             else:
                 print("\n --- Aluno não cadastrado ---")
             alunos_menu()
         if opcao == 4:
             cpf = helpers.pede_cpf()
-            if alunos.atualizar_aluno(cpf) == True:
+            if alunos.atualizar(cpf) == True:
                 print("\n--- Aluno atualizado ---")  
             else:
-                print("--- Aluno não cadastrado ---")
+                print("\n--- Aluno não cadastrado ---")
             alunos_menu()
         
         if opcao == 5:
-            alunos.grava_alunos()
+            alunos.salvar()
             alunos_menu()
         if opcao == 0:
             home_menu()
@@ -133,7 +136,7 @@ def professores_menu():
         opcao = int(input("Digite a opção: "))
         
         if opcao > 5 or opcao < 0:
-            print("--- Opção inválido por favor digite novamente ---")
+            print("\n--- Opção inválido por favor digite novamente ---")
             continue
 
         if opcao == 1:
@@ -145,32 +148,28 @@ def professores_menu():
             departamento    = helpers.pede_departamento()
 
             if professores.adicionar(nome,cpf, departamento):
-                print("--- Professor adicionado com sucesso! ---")
+                print("\n--- Professor adicionado com sucesso! ---")
                 professores_menu()
             else:
-                print("--- Professor já registrado ---")
+                print('\n--- [ERROR] Professor já existe ---')
                 professores_menu()
         if opcao == 3:
             cpf = helpers.pede_cpf()
             if professores.apagar(cpf):
                 print("\n--- Professor deletado ---")
+                professores_menu()
             else:
-                print("--- Professor Não registrado ---")
-            professores_menu()
+                print('[WARNING] Professor nao existente.')
+                professores_menu()
         if opcao == 4:
             cpf             = helpers.pede_cpf()
-            if professores.buscar(cpf):
-                nome            = helpers.pede_nome()
-                cpf_novo        = helpers.pede_cpf()
-                departamento    = helpers.pede_departamento()
-
-                professores.atualizar(cpf, nome, cpf_novo, departamento) 
-                print("--- Professor atualizado com sucesso ---")
+            if professores.atualizar(cpf):
+                print("\n--- Professor atualizado com sucesso ---")
                 professores_menu()
             else:
-                print("--- Professor não registrado ---")
+                print("\n--- Professor não registrado ---")
                 professores_menu()
-            
+                
         if opcao == 5:
             professores.salvar()
             professores_menu()
@@ -201,36 +200,39 @@ def disciplina_menu():
         opcao = int(input("Digite a opção: "))
 
         if opcao > 5 or opcao < 0:
-            print("--- Opção inválido por favor digite novamente ---")
+            print("\n--- Opção inválido por favor digite novamente ---")
             continue
-
+            
         if opcao == 1:
-            disciplinas.mostrar_disciplinas()
+            disciplinas.listar()
             disciplina_menu()
         if opcao == 2:
             codigo = helpers.pede_codigo_disciplina()
             nome = helpers.pede_nome()
-            if disciplinas.nova_discilina(nome, codigo) == False:
-                print("\n --- Disciplina já cadastrada!---")
+            if disciplinas.adicionar(nome, codigo):
+                print("\n--- Disciplina cadastrada com sucesso ---")
+                disciplina_menu()
             else:
-                print("--- Disciplina cadastrada com sucesso ---")
-            disciplina_menu()
+                print("\n --- Disciplina já cadastrada!---")
+                disciplina_menu()
         if opcao == 3:
             codigo = helpers.pede_codigo_disciplina()
-            if disciplinas.apagar_disciplina(codigo) == True:
+            if disciplinas.apagar(codigo):
                 print("\n--- Disciplina deletada ---")
+                disciplina_menu()
             else:
-                print(("--- Disciplina não cadastrada ---"))
-            disciplina_menu()
+                print(("\n--- Disciplina não cadastrada ---"))
+                disciplina_menu()
         if opcao == 4:
             codigo = helpers.pede_codigo_disciplina()
-            if disciplinas.atualzar_disciplina(codigo) == True:
+            if disciplinas.atualzar(codigo):
                 print("\n--- Disciplina Atualizada ---")
+                disciplina_menu()
             else:
-                print("--- Disciplina não cadastrada ---")
-            disciplina_menu()
+                print("\n--- Disciplina não cadastrada ---")
+                disciplina_menu()
         if opcao == 5:
-            disciplinas.grava_disciplinas()
+            disciplinas.salvar()
             disciplina_menu()
         if opcao == 0:
             home_menu()
@@ -262,41 +264,60 @@ def turma_menu():
             continue
 
         if opcao == 1:
-            turmas.mostrar_turma()
+            turmas.listar()
             turma_menu()
         if opcao == 2:
             print("\n--- Vamos adicionar as informações da turma ---")
-            codigo_da_turma = helpers.pede_codigo_turma()
+            cod_turma = helpers.pede_codigo_turma()
             periodo = helpers.pede_periodo()
-            nome_turma = input("Digite o nome da turma: ")
+            nome_turma = input("Digite o nome da turma: ") 
+            turmas.checar_cod_turma(cod_turma)
             print("\n--- Agora vamos adicionar a disciplina ---")
-            codigo_disciplina = helpers.pede_codigo_disciplina()
-            print("\n--- Agora vamos adicionar o professor da turma ---")
-            cpf_professor = helpers.pede_cpf()
-            print("\n--- Agora vamos adicionar os alunos da turma ---")
-            
-            turmas.nova_turma(nome_turma,codigo_da_turma, periodo, codigo_disciplina, cpf_professor)
-            
-            while True:
-                print("\n--- Digite 1 para adicionar ou 0 para finalizar ---")
-                opcao = int(input())
-                if opcao == 0:
-                    for indice, elemento in enumerate(turmas.alunos_cpf_temp):
-                        turmas.turma_alunos.append(elemento)
-                    break
-                elif opcao == 1:
-                    cpf_aluno = helpers.pede_cpf()
-                    if turmas.adicionar_aluno_nova_turma(cpf_aluno) == True:
-                        print("--- Aluno adicionado ---")
-                    else:
-                        print("--- Aluno inexistente ---")
-   
-            print("\n--- Nova turma adicionada ---")
-            print(turmas.informacoes_da_turma)
-            print(turmas.disciplina_turma)
-            print(turmas.professor_turma)
-            print(turmas.turma_alunos)
-            turma_menu()
+            print("\n--- Qual disciplina você deseja adicionar? --- \n")
+            disciplinas.listar()
+            cod_disciplina = helpers.pede_codigo_disciplina()    
+            disciplina = turmas.checar_disciplina(cod_disciplina)
+            if disciplina:
+                print("\n--- Agora vamos adicionar o professor da turma ---")
+                print("\n--- Qual professor você deseja adicionar? --- \n")
+                professores.listar()
+                cpf_professor = helpers.pede_cpf()
+                professor = turmas.checar_professor(cpf_professor)
+                if professor:
+                    print("\n--- Agora vamos adicionar os alunos da turma ---")
+                    lista_alunos = []
+                    while True:
+                        print("\n--- Digite 1 para adicionar ou 0 para finalizar ---")
+                        opcao = int(input())
+
+                        if opcao < 0 and opcao > 1:
+                            print("\n--- Opção inválida, pr favor digite novamente ---")
+                            continue                        
+                        elif opcao == 0:
+                            turmas.adicionar(cod_turma, nome_turma, periodo, disciplina, professor, lista_alunos)
+                            print("\n--- Nova turma adicionada ---")
+                            turma_menu()
+                            break
+                        elif opcao == 1:
+                            print("\n--- Qual aluno você deseja adicionar? --- \n")
+                            alunos.listar()
+                            cpf_aluno = helpers.pede_cpf()
+                            novo_aluno = turmas.checar_aluno(cpf_aluno)
+                            if novo_aluno:
+                                lista_alunos.append(novo_aluno)
+
+                                print("\n--- Aluno inserido na turma ---")
+                                continue
+                            else:
+                                print("\n--- Aluno não cadastrado ---")
+                                continue
+                else:
+                    print("\n--- Professor não encontrado ---")
+                    turma_menu()
+            else:
+                print("\n --- Disciplina não encontrada ---")
+                turma_menu()
+                
         if opcao == 3:
             codigo_da_turma = helpers.pede_codigo_turma()
             if turmas.deletar_turma(codigo_da_turma) == True:
@@ -409,15 +430,17 @@ def relatorio_menu():
                 
     """)
 
-    # while True:
-    #     opcao = int(input("Digite a opção: "))
-
-    #     if opcao == 1:
-    #         relatorios.ata_exercicio() 
-    #     if opcao == 2:
-    #         relatorios.lista_turmas_professor()
-    #     if opcao == 3:
-    #         relatorios.lista_disciplinas_alunos()
-    #     if opcao == 0:
-    #         home_menu()
+    while True:
+        opcao = int(input("Digite a opção: "))
+        if opcao == 1:
+            relatorios.renderizar_ata_exercicio(turmas.turmas)
+            relatorio_menu()
+        if opcao == 2:
+            relatorios.lista_turmas_professor()
+            relatorio_menu()
+        if opcao == 3:
+            relatorios.lista_disciplinas_alunos()
+            relatorio_menu()
+        if opcao == 0:
+            home_menu()
     

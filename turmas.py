@@ -4,43 +4,70 @@ import professores
 import disciplinas
 import menus
 # Turmas 
-turma = {}
+# modelo_turma = {
+#     cod_turma:
+#     periodo:
+#     nome_turma:
+#     disciplina:
+#     professor:
+#     alunos:[{
+#         nome:
+#         cpf:
+#     }]
+#     }
+turmas = []
 
-def adicionar(cod_turma, periodo, cod_disciplina):
-    # verificar se já existe
-    if cod_turma in turma.keys():
-        return False
 
-    turma[cod_turma] = [periodo, cod_disciplina, '', []]
 
+def checar_disciplina(codigo_disciplina):
+    for disciplina in disciplinas.disciplinas:
+        if codigo_disciplina == disciplina["codigo"]:
+            return disciplina
+    return False
+
+def checar_professor(cpf_professor):
+    for professor in professores.professores:
+        if cpf_professor == professor["cpf"]:
+            return professor
+    return False
+
+def checar_aluno(cpf_aluno):
+    for aluno in alunos.alunos:
+        if cpf_aluno == aluno["cpf"]:
+            return aluno
+    return False
+
+def checar_cod_turma(cod_turma):
+    if len(turmas) == 0:
+        return True
+    for turma_consulta in turmas:
+        if turma_consulta["cod_turma"] == cod_turma:
+            return False
+
+
+
+
+
+
+
+def adicionar(codigo_da_turma, nome_turma, periodo, disciplina, professor, alunos):
+    turma = {}
+    turma["cod_turma"] = codigo_da_turma
+    turma["periodo"] = periodo
+    turma["nome_turma"] = nome_turma
+    turma["disciplina"] = disciplina
+    turma["professor"] = professor
+    turma["alunos"] = alunos
+    turmas.append(turma)
+    print(turmas)
     return True
 
-
-def adicionar_professor(cod_turma, cpf):
-    # verificar se já existe
-    if len(professores.professores.keys()) == 0:
-        return False
-
-    turma[cod_turma][2] = cpf
-
-
-def adicionar_aluno(cod_turma, cpf):
-    # verificar se turma já existe
-    if cod_turma in turma.keys():
-        return False
-
-    # verificar se aluno já existe
-    if cpf in turma[3]:
-        return False
-
-    turma[cod_turma][3].append(cpf)
-
-
 def listar():
-    for chave, (periodo, disciplina, cpf_prof, cpf_alunos) in turma.items():
-        print('COD. TURMA: {} PERIODO: {} DISCIPLINA: {} PROF.: {}'.format(chave, periodo, disciplina, cpf_prof))
-        for aluno in cpf_alunos:
-            print(aluno)
+    print("--- Lista de todas as turmas registradas ---")
+    print("=" *60)
+    for turma in turmas:
+        print("Codigo: {} Periodo: {} Turma: {}".format(turma["cod_turma"], turma["periodo"], turma["nome_turma"]))
+
 
 
 def nova_turma(nome_turma,codigo_da_turma, periodo, codigo_disciplina, cpf_professor):
@@ -66,14 +93,6 @@ def nova_turma(nome_turma,codigo_da_turma, periodo, codigo_disciplina, cpf_profe
             return True
     return True
 
-
-def adicionar_aluno_nova_turma(cpf_aluno):
-    for indice,elemento in enumerate(alunos.alunos):
-        if elemento[1] == cpf_aluno:
-            alunos_cpf_temp.append(elemento)
-            return True
-        else:
-            return False
 
 
 def deletar_turma(codigo_da_turma):

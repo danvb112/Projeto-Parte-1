@@ -1,0 +1,12 @@
+[
+    {
+        "nome":"Gilberto",
+        "cpf":"123456",
+        "departamento":"TI"
+    },
+    {
+        "nome":"Marcelo Gama",
+        "cpf":"654321",
+        "departamento":"MATEMATICA"
+    }
+]

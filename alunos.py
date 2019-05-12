@@ -1,48 +1,55 @@
 import helpers
+import json
 # ALUNOS
+# aluno = {
+#     nome:
+#     cpf: 
+# }
+
 alunos = []
 
 
-def adicionar_aluno(nome, cpf):
-    global alunos
-    for indice,elemento in enumerate(alunos):
-            if elemento[1] == cpf:
-                    return False
-    alunos.append([nome, cpf])
+def adicionar(nome, cpf):
+    aluno = {}
+    for aluno_consulta in alunos:
+        if aluno_consulta["cpf"] == cpf:
+            return False
+    aluno["cpf"] = cpf
+    aluno["nome"] = nome
+    alunos.append(aluno)
+    
     return True
     
-def apagar_aluno(cpf):
-    global alunos
-    for p , e in enumerate(alunos):
-        if e[1] == cpf:
-            del alunos[p]
-            
+def apagar(cpf):
+    for i, aluno in enumerate(alunos):
+        if aluno["cpf"] == cpf:
+            del alunos[i]
             return True
+    return False
 
 
-
-def atualizar_aluno(cpf):
-    global alunos
-    for p , e in enumerate(alunos):
-        if e[1] == cpf:
-            novo_nome = input("Digite o novo nome: ")
-            novo_cpf = input("Digite o novo cpf: ")
-            alunos[p][0] = novo_nome
-            alunos[p][1] = novo_cpf
+def atualizar(cpf):
+    for aluno in alunos:
+        if cpf == aluno["cpf"]:
+            aluno["cpf"] = input("Novo CPF: ")
+            aluno["nome"] = input("Novo nome: ")
             return True
+    return False
  
     
-def ver_todos_alunos():
-    global alunos
+def listar():
     print("\n--- Lista de todos os Alunos registrados ---")
     print("=" * 50)
-    for p,e in enumerate(alunos):
-            print("%d. Aluno(a): %s        CPF: %s"%((p+1), e[0], e[1]))
+    for aluno in alunos:
+        print("Aluno(a): {}       CPF: {}".format(aluno["nome"], aluno["cpf"]))
 
 
-def grava_alunos():
-    global alunos
-    arquivo = open("alulos.txt", "w")
-    for indice, elemento in enumerate(alunos):
-        arquivo.write("Aluno(a): %s CPF: %s \n"%(elemento[0],elemento[1]))
-    arquivo.close()
+def salvar():
+    with open ("alunos.txt", "w") as arquivo:
+        for chave, (nome,cpf) in alunos.items():
+            arquivo.write("Aluno(a): {} CPF: {} \n".format(nome,cpf))
+
+
+
+
+
