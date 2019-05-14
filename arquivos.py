@@ -31,3 +31,8 @@ def carregar_dados():
     carregar_professores()
     carregar_disciplinas()
     carregar_turmas()
+
+
+if __name__ == "__main__":
+    carregar_dados()
+    

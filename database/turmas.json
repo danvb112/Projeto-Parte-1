@@ -1,0 +1,46 @@
+[
+    {
+        "cod_turma":"123",
+        "periodo":"1",
+        "nome_turma":"CC",
+        "disciplina": {
+            "codigo": "001122",
+            "nome": "IP"
+        },
+        "professor": {
+            "nome":"Gilberto",
+            "cpf":"123456",
+            "departamento":"TI"
+        },
+        "alunos":[
+            {
+                "nome": "Sandino Fofuxo",
+                "cpf": "07636338440"
+            },
+            {
+                "nome": "Daneil Targoryen",
+                "cpf": "065498714687"
+            }
+        ]
+    },
+    {
+        "cod_turma":"456",
+        "periodo":"2",
+        "nome_turma":"SI",
+        "disciplina": {
+            "codigo": "002233",
+            "nome": "Discreta"
+        },
+        "professor": {
+            "nome":"Marcelo Gama",
+            "cpf":"654321",
+            "departamento":"MATEMATICA"
+        },
+        "alunos":[
+            {
+                "nome": "Sandino Fofuxo",
+                "cpf": "07636338440"
+            }
+        ]
+    }
+]

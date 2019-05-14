@@ -20,6 +20,7 @@ def adicionar(nome, cpf, departamento):
     professor["departamento"] = departamento
     print(professor)
     professores.append(professor)
+    alunos.sort(key=lambda x: x['nome'])
     return True
 
 

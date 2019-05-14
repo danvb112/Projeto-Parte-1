@@ -369,25 +369,44 @@ def menu_atualizar_turma(codigo):
             turma_menu()
         
         elif opcao == 1:
-            periodo = helpers.pede_periodo()
-            nome_turma = input("Digite o novo nome da turma: ")
-            turmas.atualizar_informacoes_turma(codigo, periodo, nome_turma)
+            turmas.listar()
+            print('\nDigite codigo da turma')
+            codigo = helpers.cod_turma()
+            turmas.checar_cod_turma()
+            
             print("\n--- Informações da turma atualizadas ---")
             menu_atualizar_turma()
         elif opcao == 2:
-            print("--- Você deseja adicoinar ou retirar um aluno da turma? (1- adicionar 2 - retirar 0 - voltar) ---")
+            print('\nDigite codigo da turma')
+            codigo = helpers.cod_turma()
+            print("\n--- Agora vamos adicionar os alunos da turma ---")
+            lista_alunos = []
             while True:
-                opcao = int(input("Digite a opção: "))
+                print("\n--- Digite 1 para adicionar ou 0 para finalizar ---")
+                opcao = int(input())
 
-                if opcao == 1:
+                if opcao < 0 and opcao > 1:
+                    print("\n--- Opção inválida, pr favor digite novamente ---")
+                    continue                        
+                elif opcao == 0:
+                    turmas.adicionar_alunos(cod_turma, lista_alunos)
+                    print("\n--- Nova turma adicionada ---")
+                    turma_menu()
+                    break
+                elif opcao == 1:
+                    print("\n--- Qual aluno você deseja adicionar? --- \n")
+                    turmas.listar_aluno_by_turma(codigo)
                     cpf_aluno = helpers.pede_cpf()
-                    for indice,elemento in enumerate(alunos.alunos):
-                        if elemento[1] == cpf_aluno:
-                            turmas.adicionar_aluno_turma(cpf_aluno, codigo)
-                        else:
-                            print("--- Aluno Não encontrado ---")
-                if opcao == 2:
-                    cpf_aluno = helpers.pede_cpf()
+                    novo_aluno = turmas.checar_aluno(cpf_aluno)
+                    if novo_aluno:
+                        lista_alunos.append(novo_aluno)
+
+                        print("\n--- Aluno inserido na turma ---")
+                        continue
+                    else:
+                        print("\n--- Aluno não cadastrado ---")
+                        continue
+            elif opcao == 3:
                     
 
 
@@ -436,10 +455,10 @@ def relatorio_menu():
             relatorios.renderizar_ata_exercicio(turmas.turmas)
             relatorio_menu()
         if opcao == 2:
-            relatorios.lista_turmas_professor()
+            turmas.listar_by_professor()
             relatorio_menu()
         if opcao == 3:
-            relatorios.lista_disciplinas_alunos()
+            turmas.listar_by_aluno()
             relatorio_menu()
         if opcao == 0:
             home_menu()

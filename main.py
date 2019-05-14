@@ -4,8 +4,8 @@ import disciplinas
 import turmas
 import menus
 import helpers
-# import arquivos
+import arquivos
 
-# arquivos.carregar_dados()
+arquivos.carregar_dados()
 
 menus.home_menu()

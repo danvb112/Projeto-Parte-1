@@ -1,8 +1,6 @@
 import turmas
-import alunos
-import disciplinas
-import professores
- 
+import arquivos
+
 def renderizar_ata_exercicio(turmas_lista):
     if len(turmas_lista) == 0:
         print("--- Não ha turmas registradas ---")
@@ -20,10 +18,14 @@ def renderizar_ata_exercicio(turmas_lista):
             Nome da disciplina: {}
             Professor: {}
             ===================================================
-            """).format(turma["disciplina"]["codigo"], turma["periodo"],turma["nome_turma"], turma["disciplina"]["nome"], turma["professor"]["nome"])
-            for turma in turmas_lista:
+            """.format(turma["disciplina"]["codigo"], turma["periodo"],turma["nome_turma"], turma["disciplina"]["nome"], turma["professor"]["nome"]))
+            for aluno in turma['alunos']:
                 print("""
-                ---------------------------------
-                Aluno(a): {}     CPF{}   Nota:____  Assinatura:____________    
-                """).format(turma["alunos"]["nome"],turma["alunos"]["cpf"])
+                    ---------------------------------
+                    Aluno(a): {}     CPF{}   Nota:____  Assinatura:____________    
+                    """.format(aluno["nome"],aluno["cpf"]))
 
+
+if __name__ == "__main__":
+    arquivos.carregar_dados()
+    renderizar_ata_exercicio(turmas.turmas)

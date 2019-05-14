@@ -17,6 +17,8 @@ def adicionar(nome, cpf):
     aluno["cpf"] = cpf
     aluno["nome"] = nome
     alunos.append(aluno)
+
+    alunos.sort(key=lambda x: x['nome'])
     
     return True
     
