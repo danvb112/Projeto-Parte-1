@@ -28,11 +28,11 @@ def apagar(cpf):
     return False
 
 
-def atualizar(cpf):
+def atualizar(cpf_atual, nome_novo, cpf_novo):
     for aluno in alunos:
-        if cpf == aluno["cpf"]:
-            aluno["cpf"] = input("Novo CPF: ")
-            aluno["nome"] = input("Novo nome: ")
+        if cpf_atual == aluno["cpf"]:
+            aluno["nome"] = nome_novo
+            aluno["cpf"] = cpf_novo
             return True
     return False
  
@@ -46,10 +46,20 @@ def listar():
 
 def salvar():
     with open ("alunos.txt", "w") as arquivo:
-        for chave, (nome,cpf) in alunos.items():
-            arquivo.write("Aluno(a): {} CPF: {} \n".format(nome,cpf))
+        for aluno in alunos:
+            arquivo.write("Aluno(a): {}       CPF: {}\n".format(aluno["nome"], aluno["cpf"]))
 
 
 
+if __name__ == "__main__":
+    adicionar('Sandino Fofuxo', '07636338440')
+    adicionar('Daniel Targoryen', '065498714687')
 
+    listar()
 
+    atualizar('07636338440', 'Sandino Barbixa', '07636338440')
+
+    listar()
+
+    salvar()
+    

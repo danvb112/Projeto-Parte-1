@@ -37,12 +37,12 @@ def buscar_professor(cpf):
     return False
 
 
-def atualizar(cpf):
+def atualizar(cpf_atual, nome_novo, cpf_novo, departamento_novo):
     for professor in professores:
         if professor["cpf"] == cpf:
-            professor["nome"] = input("Novo nome: ")
-            professor["cpf"] = input("Novo cpf: ")
-            professor["departamento"] = input("Novo departamento: ")
+            professor["nome"] = nome_novo
+            professor["cpf"] = cpf_novo
+            professor["departamento"] = departamento_novo
             return True
     return False
         
@@ -54,11 +54,10 @@ def listar():
         print("Professor(a): {}       CPF: {} \n Departamento: {} \n ".format(professor["nome"], professor["cpf"], professor["departamento"]))
 
 
-
 def salvar():
     with open('professores.txt', 'w') as arquivo:
-        for _, (nome, cpf, dep) in professores.items():
-            arquivo.write("{},{},{} \n".format(nome, cpf, dep))    
+        for professor in professores:
+            arquivo.write("Professor(a): {}       CPF: {} \n Departamento: {} \n ".format(professor["nome"], professor["cpf"], professor["departamento"])) 
 
 
 if __name__ == '__main__':
