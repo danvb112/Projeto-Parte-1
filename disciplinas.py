@@ -14,22 +14,23 @@ def adicionar(nome, codigo):
     disciplina["nome"] = nome
     disciplina["codigo"] = codigo
     disciplinas.append(disciplina)
+    disciplinas.sort(key=lambda x: x['nome'])
     return True
 
 
 def apagar(codigo):
         for i, disciplina_consulta in enumerate(disciplinas):
-                if disciplina_consulta["codigo"] == codigo:
-                        del disciplinas[i]
-                        return True
+            if disciplina_consulta["codigo"] == codigo:
+                    del disciplinas[i]
+                    return True
         return False
 
 
-def atualizar(codigo_atual, nome_novo, codigo_novo):
+def atualizar(codigo):
     for disciplina in disciplinas:
-        if codigo_atual == disciplina["codigo"]:
-            disciplina["nome"] = nome_novo
-            disciplina["codigo"] = codigo_novo
+        if codigo == disciplina["codigo"]:
+            disciplina["nome"] = input("Digite o nome atualizado: ")
+            disciplina["codigo"] = input("Digite o codigo atualizado: ")
             return True
     return False
                      

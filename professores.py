@@ -18,9 +18,8 @@ def adicionar(nome, cpf, departamento):
     professor["nome"] = nome
     professor["cpf"] = cpf
     professor["departamento"] = departamento
-    print(professor)
     professores.append(professor)
-    alunos.sort(key=lambda x: x['nome'])
+    professores.sort(key=lambda x: x['nome'])
     return True
 
 
@@ -38,12 +37,12 @@ def buscar_professor(cpf):
     return False
 
 
-def atualizar(cpf_atual, nome_novo, cpf_novo, departamento_novo):
+def atualizar(cpf):
     for professor in professores:
         if professor["cpf"] == cpf:
-            professor["nome"] = nome_novo
-            professor["cpf"] = cpf_novo
-            professor["departamento"] = departamento_novo
+            professor["nome"] = input("Digite o nome atualizado: ")
+            professor["cpf"] = input("Digite o cpf atualizado: ")
+            professor["departamento"] = input("Digite o departamento atualizado: ")
             return True
     return False
         

@@ -22,6 +22,7 @@ def carregar_disciplinas():
 
 
 def carregar_turmas():
+
     with open('./database/turmas.json', 'r') as f:
         turmasParsed = json.load(f)
         turmas.turmas = turmasParsed

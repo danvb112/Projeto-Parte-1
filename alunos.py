@@ -17,9 +17,7 @@ def adicionar(nome, cpf):
     aluno["cpf"] = cpf
     aluno["nome"] = nome
     alunos.append(aluno)
-
-    alunos.sort(key=lambda x: x['nome'])
-    
+    alunos.sort(key=lambda x: x['nome']) 
     return True
     
 def apagar(cpf):
@@ -30,11 +28,11 @@ def apagar(cpf):
     return False
 
 
-def atualizar(cpf_atual, nome_novo, cpf_novo):
+def atualizar(cpf_atual):
     for aluno in alunos:
         if cpf_atual == aluno["cpf"]:
-            aluno["nome"] = nome_novo
-            aluno["cpf"] = cpf_novo
+            aluno["nome"] = input("Digite o nome atualizado: ")
+            aluno["cpf"] = input("Digite o cpf atualizado: ")
             return True
     return False
  
